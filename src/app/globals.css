@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu {
+  @apply mx-5 py-40 bg-white shadow-md rounded-lg;
+ 
+}
+
+.menu ul {
+  @apply list-none p-0; /* Remove padding padrão */
+}
+
+.menu li {
+  @apply mb-5;
+  @apply mx-5 /* Espaçamento entre itens */
+}
+
+.menu a {
+  @apply font-semibold font-sans no-underline text-gray-800 hover:text-blue-500 transition-colors duration-200; 
+}
+
+.menu a:hover {
+  @apply font-semibold; /* Destaque ao passar o mouse */
+}
+
+.cabecalho {
+  @apply flex justify-between items-center text-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white text-center p-5 rounded-lg;
+    @apply mx-5;
+  & li {
+    @apply mr-10 inline list-none;
+
+    & a {
+      @apply text-white font-semibold hover:text-yellow-500 hover:underline transition duration-300;
+    }
+  }
+}
+
+.cabecalho{
+    @apply text-center;
+    @apply font-bold;
+    @apply text-4xl;
+}
+
+.rodape {
+    @apply bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white text-center p-5 rounded-lg;
+    @apply mx-5;
+  }
+  
+  .rodape h2 {
+    @apply text-2xl mb-2;
+  }
+  
+  .rodape p {
+    @apply text-lg my-1;
+  }
+  
+  .rodape span {
+    @apply font-bold text-yellow-200;
+  }
+
+  body {
+    @apply bg-gray-100 text-white;
+  }
+  .checkpoint {
+    @apply bg-white text-gray-800 p-10 rounded-lg shadow-lg;
+    @apply mx-5;
+  }
+  
+  .checkpoint h1 {
+    @apply text-3xl font-bold mb-4 text-purple-600;
+  }
+  
+  .checkpoint p {
+    @apply text-lg;
+  }
+  
+  .global {
+    @apply bg-white text-gray-800 p-10 rounded-lg shadow-lg;
+    @apply mx-5;
+  }
+  
+  .global h1 {
+    @apply text-3xl font-bold mb-4 text-purple-600;
+  }
+  
+  .global p {
+    @apply text-lg;
+  }
+
+  .challenge {
+    @apply bg-white text-gray-800 p-10 rounded-lg shadow-lg;
+    @apply mx-5;
+  }
+  
+  .challenge h1 {
+    @apply text-3xl font-bold mb-4 text-purple-600;
+  }
+  
+  .challenge p {
+    @apply text-lg;
+  }
