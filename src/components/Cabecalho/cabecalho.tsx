@@ -1,7 +1,10 @@
+import Menu from "@/components/Menu/Menu"
+
 export default function Cabecalho() {
     return (
         <header className="cabecalho">
-            <h1>Notas</h1>
+            <span>Portifólio</span>
+            <Menu/>
         </header>
     )
 }

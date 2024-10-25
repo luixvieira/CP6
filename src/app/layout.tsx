@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "@/app/globals.css"
 
 export const metadata: Metadata = {
-    title: "CP6-Portifólio",
+    title: "CP6",
     description: "Feito com amor para o prof Ale<3",
+    icons: "/img/heart.png"
   };
 
 export const viewport = {

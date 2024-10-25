@@ -3,48 +3,35 @@
 @tailwind utilities;
 
 .menu {
-  @apply mx-5 py-40 bg-white shadow-md rounded-lg;
- 
+  @apply w-full py-5 bg-white shadow-md rounded-lg;
 }
 
 .menu ul {
-  @apply list-none p-0; /* Remove padding padrão */
-}
-
-.menu li {
-  @apply mb-5;
-  @apply mx-5 /* Espaçamento entre itens */
+  @apply list-none p-0 flex justify-around;
 }
 
 .menu a {
-  @apply font-semibold font-sans no-underline text-gray-800 hover:text-blue-500 transition-colors duration-200; 
-}
-
-.menu a:hover {
-  @apply font-semibold; /* Destaque ao passar o mouse */
+  @apply bg-yellow-500 shadow-md rounded-lg px-4 py-1;
 }
 
 .cabecalho {
-  @apply flex justify-between items-center text-2xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white text-center p-5 rounded-lg;
-    @apply mx-5;
+  @apply flex flex-col items-start text-4xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center p-5 rounded-lg;
+
+  & span {
+    @apply mt-2 mb-10 font-semibold text-5xl;
+  }
+
   & li {
-    @apply mr-10 inline list-none;
+    @apply inline list-none;
 
     & a {
-      @apply text-white font-semibold hover:text-yellow-500 hover:underline transition duration-300;
+      @apply text-gray-800 hover:bg-pink-600 hover:text-white transition duration-200;
     }
   }
 }
 
-.cabecalho{
-    @apply text-center;
-    @apply font-bold;
-    @apply text-4xl;
-}
-
 .rodape {
     @apply bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white text-center p-5 rounded-lg;
-    @apply mx-5;
   }
   
   .rodape h2 {
