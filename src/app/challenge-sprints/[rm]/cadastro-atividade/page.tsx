@@ -1,59 +1,64 @@
 "use client";
 
-import { TipoChallenge } from "@/app/types";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CadastroAtividade() {
+export default function CadastroAtividade({ params }: { params: { rm: number } }) {
+  const [challenge, setChallenge] = useState({ atividade: "", nota: 0 });
 
-  const navigate = useRouter();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setChallenge(prev => ({ ...prev, [name]: value }));
+  };
 
-  const [challenge, setChallenge] = useState<TipoChallenge>({
-      atividade: "",
-      nota: 0
-  });
-
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(`http://localhost:3000/api/bases/base-challenge`, {
-        method:"POST",
-        headers:{
-          "Content-Type" : "application/json"
-        },
-        body: JSON.stringify(challenge)
-      });
-
-      if(response.ok){
-        alert("Atividade cadastrada com sucesso.")
-        setChallenge({
-          atividade: "",
-          nota: 0
-      });
-        navigate.push("/challenge-sprints");
-      }
-
-    } catch (error) {
-      console.error("Falha ao cadastrar atividade!",error);
-    }
-  }
+    // Simula o envio do formulário
+    console.log(`Atividade: ${challenge.atividade}, Nota: ${challenge.nota}`);
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-    <input
-      type="text"
-      value={challenge.atividade}
-      onChange={(e)=> setChallenge({...challenge, atividade: (e.target.value)})}
-      placeholder="Atividade"
-    />
-    <input
-      type="number"
-      value={challenge.nota}
-      onChange={(e)=> setChallenge({...challenge, nota: parseFloat(e.target.value)})}
-      placeholder="Nota"
-    />
-    <button type="submit">Adicionar</button>
-  </form>
+    <div>
+      <h1>Cadastrar/Editar Atividade para o RM: {params.rm}</h1>
+      <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+            Atividade
+          </label>
+          <input
+            type="text"
+            id="idAtividade"
+            name="atividade"
+            value={challenge.atividade}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Nome da atividade"
+            required
+          />
+        </div>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+            Nota
+          </label>
+          <input
+            type="number"
+            id="idNota"
+            name="nota"
+            value={challenge.nota}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Nota da sprint"
+            required
+          />
+        </div>
+        <div>
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Alterar
+          </button>
+        </div>
+      </form>
+    </div>
   );
-};
+}

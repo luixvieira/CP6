@@ -1,93 +1,131 @@
 "use client";
 
-import { TipoChallenge } from "@/app/types";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
+type TipoChallenge = {
+  rm: number;
+  atividade: string;
+  nota: number;
+};
 
 export default function PaginaIndividual({ params }: { params: { rm: number } }) {
+  const [filteredChallenges, setFilteredChallenges] = useState<TipoChallenge[]>([]);
+  const [newChallenge, setNewChallenge] = useState({ atividade: "", nota: 0 });
+  const rm = parseInt(params.rm.toString(), 10); // Converter para número para evitar problemas de tipo
 
-    const materias = ["ARTIFICIAL INTELLIGENCE & CHATBOT", "BUILDING RELATIONAL DATABASE", "COMPUTATIONAL THINKING USING PYTHON", "DOMAIN DRIVEN DESIGN USING JAVA", "FRONT-END DESING ENGINEERING", "SOFTWARE ENGINEERING AND BUSINESS MODEL"]
+  useEffect(() => {
+    // Carregar os dados dos desafios a partir da API
+    fetch('/api/bases/base-challenge')
+      .then((response) => response.json())
+      .then((data: TipoChallenge[]) => {
+        const filtered = data.filter(challenge => challenge.rm === rm);
+        setFilteredChallenges(filtered);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar os dados:", error);
+      });
+  }, [rm]);
 
-    const [challenges, setChallenges] = useState<TipoChallenge[]>([]);
-
-    const handleDelete = async (atividade:string) =>{
-          try {
-              const response = await fetch(`http://localhost:3000/api/bases/base-challenge/${atividade}`,{
-                  method: 'DELETE',
-              });
-  
-              if (response.ok) {
-                  alert("Atividade escluída com sucesso!");
-                  window.location.href = "/challenge-sprints";
-              }
-  
-          } catch (error) {
-              console.error("Falha na exclusão!", error);
-              
-          }
+  // Função para adicionar uma nova nota
+  const handleAddChallenge = () => {
+    if (newChallenge.atividade && newChallenge.nota) {
+      fetch('/api/bases/base-challenge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          rm,
+          atividade: newChallenge.atividade,
+          nota: newChallenge.nota,
+        }),
+      })
+      .then(response => response.json())
+      .then(() => {
+        setFilteredChallenges([...filteredChallenges, { ...newChallenge, rm }]);
+        setNewChallenge({ atividade: "", nota: 0 });
+      })
+      .catch(error => console.error('Erro ao adicionar nota:', error));
     }
-  
-      useEffect(() => {
-        async function chamadaApi() {
-            try {
-              const response = await fetch('http://localhost:3000/api/bases/base-challenge');
-              
-              if (!response.ok) {
-                throw new Error(`Erro: ${response.status}`);
-              }
-              
-              const data = await response.json();
-              setChallenges(data);
-            } catch (error) {
-                return console.error("Erro em fazer o fetch:", error);
-            }
-          }
-          chamadaApi();
-      },[]);
-    
-    return (
-        <>
-          <div className="paginas challenge">
-            <h1>Challenge Sprints - {params.rm}</h1>
-            <p>Listagem de todas as avaliações de Challenge Sprints aqui.</p>
-          </div>
-  
-          <div>
-            {materias.map((m) => (
-                <>
-                    <h2>{m}</h2>
-                    <table className="tabela challenge">
-                        <thead>
-                            <tr>
-                                <td colSpan={5}>
-                                    Quantidade de atividades: {challenges.length}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Atividade</th>
-                                <th>Nota</th>
-                                <th>Editar</th>
-                                <th>Excluir</th>
-                            </tr>
-                        </thead>
-        
-                        <tbody>
-                            {challenges.map((n) => (
-                                <tr key={n.atividade}>
-                                    <td>{n.atividade}</td>
-                                    <td>{n.nota}</td>
-                                    <td><Link href={`/challenge-sprints/${params.rm}/${n.atividade}`}>Editar</Link></td>
-                                    <td><Link href="#" onClick={()=>handleDelete(n.atividade)}>Excluir</Link></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <Link href={`/challenge-sprints/${params.rm}/cadastro-atividade`}>Cadastrar nova atividade</Link>
-                </>
-            ))};
-          
-          </div>
-        </>
-      )
+  };
+
+  // Função para remover uma nota
+  const handleRemoveChallenge = (index: number) => {
+    const { atividade } = filteredChallenges[index];
+
+    fetch(`/api/bases/base-challenge/${atividade}`, {
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(() => {
+      const updatedChallenges = filteredChallenges.filter((_, i) => i !== index);
+      setFilteredChallenges(updatedChallenges);
+    })
+    .catch(error => console.error('Erro ao remover nota:', error));
+  };
+
+  // Função para alterar uma nota
+  const handleEditChallenge = (index: number, updatedNota: number) => {
+    const { atividade } = filteredChallenges[index];
+
+    fetch(`/api/bases/base-challenge/${atividade}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        atividade,
+        nota: updatedNota,
+      }),
+    })
+    .then(response => response.json())
+    .then(() => {
+      const updatedChallenges = filteredChallenges.map((challenge, i) =>
+        i === index ? { ...challenge, nota: updatedNota } : challenge
+      );
+      setFilteredChallenges(updatedChallenges);
+    })
+    .catch(error => console.error('Erro ao editar nota:', error));
+  };
+
+  return (
+    <div>
+      <h1>Notas do Aluno RM: {rm}</h1>
+      <div>
+        {filteredChallenges.length > 0 ? (
+          filteredChallenges.map((challenge, index) => (
+            <div key={index} className="challenge-card">
+              <h2>Atividade: {challenge.atividade}</h2>
+              <p>Nota: {challenge.nota}</p>
+              <button onClick={() => handleRemoveChallenge(index)}>Remover</button>
+              <input
+                type="number"
+                value={challenge.nota}
+                onChange={(e) => handleEditChallenge(index, parseFloat(e.target.value))}
+              />
+            </div>
+          ))
+        ) : (
+          <p>Nenhuma nota encontrada para este aluno.</p>
+        )}
+      </div>
+
+      <div>
+        <h2>Adicionar Nova Nota</h2>
+        <input
+          type="text"
+          placeholder="Atividade"
+          value={newChallenge.atividade}
+          onChange={(e) => setNewChallenge({ ...newChallenge, atividade: e.target.value })}
+        />
+        <input
+          type="number"
+          placeholder="Nota"
+          value={newChallenge.nota}
+          onChange={(e) => setNewChallenge({ ...newChallenge, nota: parseFloat(e.target.value) })}
+        />
+        <button onClick={handleAddChallenge}>Adicionar</button>
+      </div>
+    </div>
+  );
 }
