@@ -11,13 +11,9 @@ type TipoChallenge = {
 export default function PaginaIndividual({ params }: { params: { rm: number } }) {
   const [filteredChallenges, setFilteredChallenges] = useState<TipoChallenge[]>([]);
   const [newChallenge, setNewChallenge] = useState({ rm: 0, atividade: "", nota: 0 });
-  const rm = parseInt(params.rm.toString(), 10); // Converter para número para evitar problemas de tipo
-
-  console.log("Valor do RM recebido:", rm); // Log do RM para verificar se está correto
+  const rm = parseInt(params.rm.toString(), 10);
 
   const loadChallenges = () => {
-    console.log("Carregando os desafios para o RM:", rm);
-    // Carregar os dados dos desafios a partir da API
     fetch('/api/bases/base-challenge')
       .then((response) => {
         if (!response.ok) {
@@ -26,9 +22,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         return response.json();
       })
       .then((data: TipoChallenge[]) => {
-        console.log("Dados carregados:", data);
         const filtered = data.filter(challenge => challenge.rm === rm);
-        console.log("Dados filtrados para o RM:", filtered);
         setFilteredChallenges(filtered);
       })
       .catch((error) => {
@@ -37,20 +31,18 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   useEffect(() => {
-    loadChallenges(); // Carregar os dados quando o componente é montado
+    loadChallenges();
   }, [rm]);
 
-  // Função para adicionar uma nova nota
   const handleAddChallenge = () => {
-    if (newChallenge.rm && newChallenge.atividade && newChallenge.nota) {
-      console.log("Adicionando nova nota:", newChallenge);
+    if (newChallenge.atividade && newChallenge.nota) {
       fetch('/api/bases/base-challenge', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          rm: newChallenge.rm,
+          rm: rm,
           atividade: newChallenge.atividade,
           nota: newChallenge.nota,
         }),
@@ -59,7 +51,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
       .then((data) => {
         console.log("Nota adicionada com sucesso:", data);
         setNewChallenge({ rm: 0, atividade: "", nota: 0 });
-        loadChallenges(); // Recarregar os desafios após adicionar
+        loadChallenges();
       })
       .catch(error => console.error('Erro ao adicionar nota:', error));
     } else {
@@ -67,10 +59,8 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     }
   };
 
-  // Função para remover uma nota
   const handleRemoveChallenge = async (index: number) => {
     const { atividade } = filteredChallenges[index];
-    console.log("Removendo a atividade:", atividade);
 
     try {
         const response = await fetch(`/api/bases/base-challenge/${atividade}`, {
@@ -92,8 +82,6 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     }
 };
 
-
-  // Função para alterar uma nota
   const handleEditChallenge = (index: number, updatedNota: number) => {
     const { atividade, rm } = filteredChallenges[index];
     console.log("Editando a atividade:", atividade, "com nova nota:", updatedNota);
@@ -104,7 +92,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        rm, // Inclui o rm ao enviar a requisição para o PUT
+        rm,
         atividade,
         nota: updatedNota,
       }),
@@ -112,7 +100,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     .then(response => response.json())
     .then(() => {
       console.log("Nota atualizada com sucesso.");
-      loadChallenges(); // Recarregar os desafios após a edição
+      loadChallenges();
     })
     .catch(error => console.error('Erro ao editar nota:', error));
   };
@@ -141,12 +129,6 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
 
       <div>
         <h2>Adicionar Nova Nota</h2>
-        <input
-          type="number"
-          placeholder="RM"
-          value={newChallenge.rm}
-          onChange={(e) => setNewChallenge({ ...newChallenge, rm: parseInt(e.target.value, 10) })}
-        />
         <input
           type="text"
           placeholder="Atividade"
