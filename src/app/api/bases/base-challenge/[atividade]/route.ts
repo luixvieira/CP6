@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { TipoChallenge } from "@/app/types";
 
-const jsonFilePath = path.resolve('./data/data-challenge.json');
+const jsonFilePath = process.cwd() + '/src/data/data-challenge.json';
 
 // Método GET: Retorna todos os desafios
 export async function GET() {
@@ -88,29 +88,43 @@ export async function PUT(request: Request, { params }: { params: { atividade: s
 export async function DELETE(request: Request, { params }: { params: { atividade: string } }) {
     try {
         // Ler os dados existentes no JSON
+        console.log("Lendo o arquivo JSON para exclusão.");
         const file = await fs.readFile(jsonFilePath, 'utf-8');
         const challenges: TipoChallenge[] = JSON.parse(file);
+
+        // Verificar se o parâmetro 'atividade' foi fornecido
+        if (!params.atividade) {
+            console.error("Parâmetro 'atividade' não foi fornecido.");
+            return NextResponse.json({ msg: "Atividade não especificada." }, { status: 400 });
+        }
+
+        console.log("Atividade recebida para exclusão:", params.atividade);
 
         // Encontrar o índice do desafio que corresponde à atividade fornecida
         const indice = challenges.findIndex(c => c.atividade === params.atividade);
 
         if (indice !== -1) {
             // Remover o desafio do array
+            console.log("Índice do desafio a ser removido:", indice);
             challenges.splice(indice, 1);
 
             // Salvar as alterações no arquivo JSON
+            console.log("Salvando as alterações no arquivo JSON.");
             const fileUpdate = JSON.stringify(challenges, null, 2);
             await fs.writeFile(jsonFilePath, fileUpdate);
 
+            console.log("Desafio excluído com sucesso:", params.atividade);
+
             // Retornar uma resposta de sucesso
-            return NextResponse.json({ msg: "Sprint excluída com sucesso!" });
+            return NextResponse.json({ msg: "Desafio excluído com sucesso!" });
         } else {
             // Caso a atividade não seja encontrada
+            console.error("Atividade não encontrada:", params.atividade);
             return NextResponse.json({ msg: "Atividade não encontrada." }, { status: 404 });
         }
     } catch (error) {
-        // Em caso de erro, logar o erro e retornar uma resposta de erro
-        console.error("Erro ao excluir a sprint:", error);
-        return NextResponse.json({ msg: "Erro ao excluir a sprint." }, { status: 500 });
+        console.error("Erro ao excluir o desafio:", error);
+        return NextResponse.json({ msg: "Erro ao excluir o desafio." }, { status: 500 });
     }
 }
+

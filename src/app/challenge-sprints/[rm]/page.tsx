@@ -68,20 +68,30 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   // Função para remover uma nota
-  const handleRemoveChallenge = (index: number) => {
+  const handleRemoveChallenge = async (index: number) => {
     const { atividade } = filteredChallenges[index];
     console.log("Removendo a atividade:", atividade);
 
-    fetch(`/api/bases/base-challenge/${atividade}`, {
-      method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(() => {
-      console.log("Atividade removida com sucesso.");
-      loadChallenges(); // Recarregar os desafios após remover
-    })
-    .catch(error => console.error('Erro ao remover nota:', error));
-  };
+    try {
+        const response = await fetch(`/api/bases/base-challenge/${atividade}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro ao excluir o desafio: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log("Atividade removida com sucesso:", data.msg);
+
+        // Atualizar o estado local após a remoção
+        const updatedChallenges = filteredChallenges.filter((_, i) => i !== index);
+        setFilteredChallenges(updatedChallenges);
+    } catch (error) {
+        console.error("Erro ao remover a atividade:", error);
+    }
+};
+
 
   // Função para alterar uma nota
   const handleEditChallenge = (index: number, updatedNota: number) => {
