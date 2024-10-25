@@ -1,5 +1,6 @@
 "use client";
 
+import { TipoChallenge } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -7,8 +8,10 @@ export default function Cadastroatividades() {
 
     const navigate = useRouter();
 
-    const [atividade, setAtividade] = useState('');
-    const [nota, setNota] = useState(0);
+    const [challenge, setChallenge] = useState<TipoChallenge>({
+        atividade: "",
+        nota: 0
+    });
 
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -19,14 +22,16 @@ export default function Cadastroatividades() {
         headers:{
           "Content-Type" : "application/json"
         },
-        body: JSON.stringify({ atividade, nota })
+        body: JSON.stringify({ challenge })
       });
 
       if(response.ok){
         alert("Produto cadastrado com sucesso.")
-        setAtividade('');
-        setNota(0)
-        navigate.push("/produtos");
+        setChallenge({
+            atividade: "",
+            nota: 0
+        })
+        navigate.push("/challenge-sprints");
       }
 
     } catch (error) {
@@ -37,8 +42,8 @@ export default function Cadastroatividades() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={atividade} onChange={(e) => setAtividade(e.target.value)} placeholder="Atividade" />
-      <input type="number" value={nota} onChange={(e) => setNota(parseInt(e.target.value))} placeholder="Nota" />
+      <input type="text" value={challenge.atividade} onChange={(e) => setChallenge({...challenge, atividade: e.target.value})} placeholder="Atividade" />
+      <input type="number" value={challenge.nota} onChange={(e) => setChallenge({...challenge, nota: parseFloat(e.target.value)})} placeholder="Nota" />
       <button type="submit">Adicionar</button>
     </form>
   );

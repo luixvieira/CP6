@@ -3,7 +3,7 @@ import Menu from "@/components/Menu/Menu"
 export default function Cabecalho() {
     return (
         <header className="cabecalho">
-            <span>Dashboard</span>
+            <span>Portifólio</span>
             <Menu/>
         </header>
     )
