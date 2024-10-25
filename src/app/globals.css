@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-100 text-white;
+  @apply bg-gray-100  text-blue-950;
 }
 
 .menu {
@@ -22,7 +22,7 @@ body {
   @apply flex flex-col items-start bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center p-5 rounded-lg;
 
   & span {
-    @apply mt-2 mb-10 font-semibold text-5xl;
+    @apply mt-2 mb-10 font-semibold text-5xl text-white;
   }
 
   & li {
@@ -60,10 +60,6 @@ body {
     & p {
       @apply text-lg font-semibold;
     }
-}
-
-.paginas.challenge {
-  @apply text-blue-950;
 }
 
 .tabela {
