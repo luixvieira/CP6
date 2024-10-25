@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-gray-100 text-white;
+}
+
 .menu {
   @apply w-full py-5 bg-white shadow-md rounded-lg;
 }
@@ -45,45 +49,23 @@
   .rodape span {
     @apply font-bold text-yellow-200;
   }
+  
+.paginas {
+    @apply text-gray-800 p-10 rounded-lg shadow-lg;
 
-  body {
-    @apply bg-gray-100 text-white;
-  }
-  .checkpoint {
-    @apply bg-white text-gray-800 p-10 rounded-lg shadow-lg;
-    @apply mx-5;
-  }
-  
-  .checkpoint h1 {
-    @apply text-3xl font-bold mb-4 text-purple-600;
-  }
-  
-  .checkpoint p {
-    @apply text-lg;
-  }
-  
-  .global {
-    @apply bg-white text-gray-800 p-10 rounded-lg shadow-lg;
-    @apply mx-5;
-  }
-  
-  .global h1 {
-    @apply text-3xl font-bold mb-4 text-purple-600;
-  }
-  
-  .global p {
-    @apply text-lg;
-  }
+    & h1 {
+      @apply text-6xl font-bold mb-5;
+    }
 
-  .challenge {
-    @apply bg-white text-gray-800 p-10 rounded-lg shadow-lg;
-    @apply mx-5;
+    & p {
+      @apply text-lg;
   }
-  
-  .challenge h1 {
-    @apply text-3xl font-bold mb-4 text-purple-600;
+}
+
+.paginas.challenge {
+  @apply  bg-pink-500;
+
+  & h1 {
+    @apply text-purple-600;
   }
-  
-  .challenge p {
-    @apply text-lg;
-  }
+}
