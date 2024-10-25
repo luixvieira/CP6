@@ -3,6 +3,6 @@
 - Luis Henrique Santos Silva => RM: 558935
 - Melissa Pereira da Costa => RM: 555656
 
-## Turma: 1TDSPY
+### *Turma: 1TDSPY*
 
-## Link do projeto na Vercel:
+## Link do projeto na Vercel
