@@ -7,7 +7,7 @@ export default function AtividadeDetalhe({ params }: { params: { rm: number, ati
   const [challenge, setChallenge] = useState<{ atividade: string, nota: number } | null>(null);
 
   useEffect(() => {
-    fetch('/src/data/data-challenge.json')
+    fetch('/src/data/data-gs.json')
       .then(response => response.json())
       .then(data => {
         const atividadeData = data.find((item: TipoChallenge) => item.rm === params.rm && item.atividade === params.atividade);

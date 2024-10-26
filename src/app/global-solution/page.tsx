@@ -17,7 +17,7 @@ export default function GSPage() {
 
       <div className="alunos">
         {alunos.map((aluno) => (
-          <Link key={aluno.rm} href={`/checkpoint/${aluno.rm}`}>
+          <Link key={aluno.rm} href={`/global-solution/${aluno.rm}`}>
             <section>
               <span className="nome">{aluno.nome}</span>
               <span>RM: {aluno.rm}</span>
