@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
-import { TipoChallenge } from "@/app/types";
+import { TipoCheckpoint } from "@/app/types";
 
-const jsonFilePath = process.cwd() + '/src/data/data-challenge.json';
+const jsonFilePath = process.cwd() + '/src/data/data-checkpoint.json';
 
-// Método GET: Retorna todos os desafios
 export async function GET() {
     try {
         const file = await fs.readFile(jsonFilePath, 'utf-8');
@@ -16,11 +15,10 @@ export async function GET() {
     }
 }
 
-// Método POST: Adiciona um novo desafio
 export async function POST(request: Request) {
     try {
         const file = await fs.readFile(jsonFilePath, 'utf-8');
-        const challenges: TipoChallenge[] = JSON.parse(file);
+        const checkpoints: TipoCheckpoint[] = JSON.parse(file);
         
         const { rm, atividade, nota } = await request.json();
 
@@ -28,24 +26,23 @@ export async function POST(request: Request) {
             return NextResponse.json({ msg: "Dados inválidos." }, { status: 400 });
         }
         
-        const newChallenge = { rm, atividade, nota } as TipoChallenge;
-        challenges.push(newChallenge);
+        const newCheckpoint = { rm, atividade, nota } as TipoCheckpoint;
+        checkpoints.push(newCheckpoint);
 
-        const fileCreated = JSON.stringify(challenges, null, 2);
+        const fileCreated = JSON.stringify(checkpoints, null, 2);
         await fs.writeFile(jsonFilePath, fileCreated);
         
-        return NextResponse.json(newChallenge, { status: 201 });
+        return NextResponse.json(newCheckpoint, { status: 201 });
     } catch (error) {
-        console.error("Erro ao adicionar o desafio:", error);
-        return NextResponse.json({ msg: "Erro ao adicionar o desafio." }, { status: 500 });
+        console.error("Erro ao adicionar o CP:", error);
+        return NextResponse.json({ msg: "Erro ao adicionar o CP." }, { status: 500 });
     }
 }
 
-// Método DELETE: Remove um desafio existente
 export async function DELETE(request: Request, { params }: { params: { atividade: string } }) {
     try {
         const file = await fs.readFile(jsonFilePath, 'utf-8');
-        const challenges: TipoChallenge[] = JSON.parse(file);
+        const checkpoints: TipoCheckpoint[] = JSON.parse(file);
 
         if (!params.atividade) {
             console.error("Parâmetro 'atividade' não foi fornecido.");
@@ -54,11 +51,11 @@ export async function DELETE(request: Request, { params }: { params: { atividade
 
         console.log("Atividade recebida para exclusão:", params.atividade);
 
-        const indice = challenges.findIndex(c => c.atividade === params.atividade);
+        const indice = checkpoints.findIndex(c => c.atividade === params.atividade);
 
         if (indice !== -1) {
-            challenges.splice(indice, 1);
-            const fileUpdate = JSON.stringify(challenges, null, 2);
+            checkpoints.splice(indice, 1);
+            const fileUpdate = JSON.stringify(checkpoints, null, 2);
             await fs.writeFile(jsonFilePath, fileUpdate);
 
             return NextResponse.json({ msg: "Desafio excluído com sucesso!" });

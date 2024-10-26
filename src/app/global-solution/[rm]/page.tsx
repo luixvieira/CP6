@@ -1,29 +1,24 @@
 "use client";
 
+import { TipoCheckpoint } from "@/app/types";
 import { useEffect, useState } from "react";
 
-type TipoChallenge = {
-  rm: number;
-  atividade: string;
-  nota: number;
-};
-
 export default function PaginaIndividual({ params }: { params: { rm: number } }) {
-  const [filteredChallenges, setFilteredChallenges] = useState<TipoChallenge[]>([]);
-  const [newChallenge, setNewChallenge] = useState({ rm: 0, atividade: "", nota: 0 });
+  const [filteredCheckpoints, setFilteredCheckpoints] = useState<TipoCheckpoint[]>([]);
+  const [newCheckpoint, setNewCheckpoint] = useState({ rm: 0, atividade: "", nota: 0 });
   const rm = parseInt(params.rm.toString(), 10);
 
-  const loadChallenges = () => {
-    fetch('/api/bases/base-challenge')
+  const loadCheckpoints = () => {
+    fetch('/api/bases/base-checkpoint')
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados da API");
         }
         return response.json();
       })
-      .then((data: TipoChallenge[]) => {
-        const filtered = data.filter(challenge => challenge.rm === rm);
-        setFilteredChallenges(filtered);
+      .then((data: TipoCheckpoint[]) => {
+        const filtered = data.filter(checkpoint => checkpoint.rm === rm);
+        setFilteredCheckpoints(filtered);
       })
       .catch((error) => {
         console.error("Erro ao buscar os dados:", error);
@@ -31,27 +26,27 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   useEffect(() => {
-    loadChallenges();
+    loadCheckpoints();
   }, [rm]);
 
-  const handleAddChallenge = () => {
-    if (newChallenge.atividade && newChallenge.nota) {
-      fetch('/api/bases/base-challenge', {
+  const handleAddCheckpoint = () => {
+    if (newCheckpoint.atividade && newCheckpoint.nota) {
+      fetch('/api/bases/base-checkpoint', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           rm: rm,
-          atividade: newChallenge.atividade,
-          nota: newChallenge.nota,
+          atividade: newCheckpoint.atividade,
+          nota: newCheckpoint.nota,
         }),
       })
       .then(response => response.json())
       .then((data) => {
         console.log("Nota adicionada com sucesso:", data);
-        setNewChallenge({ rm: 0, atividade: "", nota: 0 });
-        loadChallenges();
+        setNewCheckpoint({ rm: 0, atividade: "", nota: 0 });
+        loadCheckpoints();
       })
       .catch(error => console.error('Erro ao adicionar nota:', error));
     } else {
@@ -59,34 +54,30 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     }
   };
 
-  const handleRemoveChallenge = async (index: number) => {
-    const { atividade } = filteredChallenges[index];
+  const handleRemoveCheckpoint = async (index: number) => {
+    const { atividade } = filteredCheckpoints[index];
 
     try {
-        const response = await fetch(`/api/bases/base-challenge/${atividade}`, {
+        const response = await fetch(`/api/bases/base-checkpoint/${atividade}`, {
             method: 'DELETE',
         });
 
         if (!response.ok) {
-            throw new Error(`Erro ao excluir o desafio: ${response.statusText}`);
+            throw new Error(`Erro ao excluir o CP: ${response.statusText}`);
         }
 
-        const data = await response.json();
-        console.log("Atividade removida com sucesso:", data.msg);
-
-        // Atualizar o estado local após a remoção
-        const updatedChallenges = filteredChallenges.filter((_, i) => i !== index);
-        setFilteredChallenges(updatedChallenges);
+        const updatedCheckpoints = filteredCheckpoints.filter((_, i) => i !== index);
+        setFilteredCheckpoints(updatedCheckpoints);
     } catch (error) {
         console.error("Erro ao remover a atividade:", error);
     }
 };
 
-  const handleEditChallenge = (index: number, updatedNota: number) => {
-    const { atividade, rm } = filteredChallenges[index];
+  const handleEditCheckpoint = (index: number, updatedNota: number) => {
+    const { atividade, rm } = filteredCheckpoints[index];
     console.log("Editando a atividade:", atividade, "com nova nota:", updatedNota);
 
-    fetch(`/api/bases/base-challenge/${atividade}`, {
+    fetch(`/src/api/bases/base-checkpoint/${atividade}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -100,7 +91,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     .then(response => response.json())
     .then(() => {
       console.log("Nota atualizada com sucesso.");
-      loadChallenges();
+      loadCheckpoints();
     })
     .catch(error => console.error('Erro ao editar nota:', error));
   };
@@ -109,16 +100,16 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     <div>
       <h1>Notas do Aluno RM: {rm}</h1>
       <div>
-        {filteredChallenges.length > 0 ? (
-          filteredChallenges.map((challenge, index) => (
-            <div key={index} className="challenge-card">
-              <h2>Atividade: {challenge.atividade}</h2>
-              <p>Nota: {challenge.nota}</p>
-              <button onClick={() => handleRemoveChallenge(index)}>Remover</button>
+        {filteredCheckpoints.length > 0 ? (
+          filteredCheckpoints.map((checkpoint, index) => (
+            <div key={index} className="checkpoint-card">
+              <h2>Atividade: {checkpoint.atividade}</h2>
+              <p>Nota: {checkpoint.nota}</p>
+              <button onClick={() => handleRemoveCheckpoint(index)}>Remover</button>
               <input
                 type="number"
-                value={challenge.nota}
-                onChange={(e) => handleEditChallenge(index, parseFloat(e.target.value))}
+                value={checkpoint.nota}
+                onChange={(e) => handleEditCheckpoint(index, parseFloat(e.target.value))}
               />
             </div>
           ))
@@ -132,16 +123,16 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         <input
           type="text"
           placeholder="Atividade"
-          value={newChallenge.atividade}
-          onChange={(e) => setNewChallenge({ ...newChallenge, atividade: e.target.value })}
+          value={newCheckpoint.atividade}
+          onChange={(e) => setNewCheckpoint({ ...newCheckpoint, atividade: e.target.value })}
         />
         <input
           type="number"
           placeholder="Nota"
-          value={newChallenge.nota}
-          onChange={(e) => setNewChallenge({ ...newChallenge, nota: parseFloat(e.target.value) })}
+          value={newCheckpoint.nota}
+          onChange={(e) => setNewCheckpoint({ ...newCheckpoint, nota: parseFloat(e.target.value) })}
         />
-        <button onClick={handleAddChallenge}>Adicionar</button>
+        <button onClick={handleAddCheckpoint}>Adicionar</button>
       </div>
     </div>
   );

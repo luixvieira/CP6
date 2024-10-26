@@ -1,12 +1,7 @@
 "use client";
 
+import { TipoChallenge } from "@/app/types";
 import { useEffect, useState } from "react";
-
-type TipoChallenge = {
-  rm: number;
-  atividade: string;
-  nota: number;
-};
 
 export default function PaginaIndividual({ params }: { params: { rm: number } }) {
   const [filteredChallenges, setFilteredChallenges] = useState<TipoChallenge[]>([]);
@@ -70,11 +65,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         if (!response.ok) {
             throw new Error(`Erro ao excluir o desafio: ${response.statusText}`);
         }
-
-        const data = await response.json();
-        console.log("Atividade removida com sucesso:", data.msg);
-
-        // Atualizar o estado local após a remoção
+        
         const updatedChallenges = filteredChallenges.filter((_, i) => i !== index);
         setFilteredChallenges(updatedChallenges);
     } catch (error) {
