@@ -3,16 +3,16 @@
 import { useState } from "react";
 
 export default function CadastroAtividade({ params }: { params: { rm: number } }) {
-  const [challenge, setChallenge] = useState({ atividade: "", nota: 0 });
+  const [globalSolution, setGlobalSolution] = useState({ atividade: "", nota: 0 });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setChallenge(prev => ({ ...prev, [name]: value }));
+    setGlobalSolution(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`Atividade: ${challenge.atividade}, Nota: ${challenge.nota}`);
+    console.log(`Atividade: ${globalSolution.atividade}, Nota: ${globalSolution.nota}`);
   };
 
   return (
@@ -27,7 +27,7 @@ export default function CadastroAtividade({ params }: { params: { rm: number } }
             type="text"
             id="idAtividade"
             name="atividade"
-            value={challenge.atividade}
+            value={globalSolution.atividade}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Nome da atividade"
@@ -42,7 +42,7 @@ export default function CadastroAtividade({ params }: { params: { rm: number } }
             type="number"
             id="idNota"
             name="nota"
-            value={challenge.nota}
+            value={globalSolution.nota}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Nota da sprint"

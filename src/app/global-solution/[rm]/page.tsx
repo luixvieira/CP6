@@ -1,24 +1,24 @@
 "use client";
 
-import { TipoCheckpoint } from "@/app/types";
+import { TipoGS } from "@/app/types";
 import { useEffect, useState } from "react";
 
 export default function PaginaIndividual({ params }: { params: { rm: number } }) {
-  const [filteredCheckpoints, setFilteredCheckpoints] = useState<TipoCheckpoint[]>([]);
-  const [newCheckpoint, setNewCheckpoint] = useState({ rm: 0, atividade: "", nota: 0 });
+  const [filteredGlobalSolutions, setFilteredGlobalSolutions] = useState<TipoGS[]>([]);
+  const [newGlobalSolution, setNewGlobalSolution] = useState({ rm: 0, atividade: "", nota: 0 });
   const rm = parseInt(params.rm.toString(), 10);
 
-  const loadCheckpoints = () => {
-    fetch('/api/bases/base-checkpoint')
+  const loadGlobalSolutions = () => {
+    fetch('/api/bases/base-global-solution')
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados da API");
         }
         return response.json();
       })
-      .then((data: TipoCheckpoint[]) => {
-        const filtered = data.filter(checkpoint => checkpoint.rm === rm);
-        setFilteredCheckpoints(filtered);
+      .then((data: TipoGS[]) => {
+        const filtered = data.filter(globalSolution => globalSolution.rm === rm);
+        setFilteredGlobalSolutions(filtered);
       })
       .catch((error) => {
         console.error("Erro ao buscar os dados:", error);
@@ -26,27 +26,27 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   useEffect(() => {
-    loadCheckpoints();
+    loadGlobalSolutions();
   }, [rm]);
 
-  const handleAddCheckpoint = () => {
-    if (newCheckpoint.atividade && newCheckpoint.nota) {
-      fetch('/api/bases/base-checkpoint', {
+  const handleAddGlobalSolution = () => {
+    if (newGlobalSolution.atividade && newGlobalSolution.nota) {
+      fetch('/api/bases/base-global-solution', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           rm: rm,
-          atividade: newCheckpoint.atividade,
-          nota: newCheckpoint.nota,
+          atividade: newGlobalSolution.atividade,
+          nota: newGlobalSolution.nota,
         }),
       })
       .then(response => response.json())
       .then((data) => {
         console.log("Nota adicionada com sucesso:", data);
-        setNewCheckpoint({ rm: 0, atividade: "", nota: 0 });
-        loadCheckpoints();
+        setNewGlobalSolution({ rm: 0, atividade: "", nota: 0 });
+        loadGlobalSolutions();
       })
       .catch(error => console.error('Erro ao adicionar nota:', error));
     } else {
@@ -54,11 +54,11 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     }
   };
 
-  const handleRemoveCheckpoint = async (index: number) => {
-    const { atividade } = filteredCheckpoints[index];
+  const handleRemoveGlobalSolution = async (index: number) => {
+    const { atividade } = filteredGlobalSolutions[index];
 
     try {
-        const response = await fetch(`/api/bases/base-checkpoint/${atividade}`, {
+        const response = await fetch(`/api/bases/base-global-solution/${atividade}`, {
             method: 'DELETE',
         });
 
@@ -66,18 +66,18 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
             throw new Error(`Erro ao excluir o CP: ${response.statusText}`);
         }
 
-        const updatedCheckpoints = filteredCheckpoints.filter((_, i) => i !== index);
-        setFilteredCheckpoints(updatedCheckpoints);
+        const updatedGlobalSolutions = filteredGlobalSolutions.filter((_, i) => i !== index);
+        setFilteredGlobalSolutions(updatedGlobalSolutions);
     } catch (error) {
         console.error("Erro ao remover a atividade:", error);
     }
 };
 
-  const handleEditCheckpoint = (index: number, updatedNota: number) => {
-    const { atividade, rm } = filteredCheckpoints[index];
+  const handleEditGlobalSolution = (index: number, updatedNota: number) => {
+    const { atividade, rm } = filteredGlobalSolutions[index];
     console.log("Editando a atividade:", atividade, "com nova nota:", updatedNota);
 
-    fetch(`/src/api/bases/base-checkpoint/${atividade}`, {
+    fetch(`/src/api/bases/base-global-solution/${atividade}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     .then(response => response.json())
     .then(() => {
       console.log("Nota atualizada com sucesso.");
-      loadCheckpoints();
+      loadGlobalSolutions();
     })
     .catch(error => console.error('Erro ao editar nota:', error));
   };
@@ -100,16 +100,16 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     <div>
       <h1>Notas do Aluno RM: {rm}</h1>
       <div>
-        {filteredCheckpoints.length > 0 ? (
-          filteredCheckpoints.map((checkpoint, index) => (
-            <div key={index} className="checkpoint-card">
-              <h2>Atividade: {checkpoint.atividade}</h2>
-              <p>Nota: {checkpoint.nota}</p>
-              <button onClick={() => handleRemoveCheckpoint(index)}>Remover</button>
+        {filteredGlobalSolutions.length > 0 ? (
+          filteredGlobalSolutions.map((globalSolution, index) => (
+            <div key={index} className="globalSolution-card">
+              <h2>Atividade: {globalSolution.atividade}</h2>
+              <p>Nota: {globalSolution.nota}</p>
+              <button onClick={() => handleRemoveGlobalSolution(index)}>Remover</button>
               <input
                 type="number"
-                value={checkpoint.nota}
-                onChange={(e) => handleEditCheckpoint(index, parseFloat(e.target.value))}
+                value={globalSolution.nota}
+                onChange={(e) => handleEditGlobalSolution(index, parseFloat(e.target.value))}
               />
             </div>
           ))
@@ -123,16 +123,16 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         <input
           type="text"
           placeholder="Atividade"
-          value={newCheckpoint.atividade}
-          onChange={(e) => setNewCheckpoint({ ...newCheckpoint, atividade: e.target.value })}
+          value={newGlobalSolution.atividade}
+          onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, atividade: e.target.value })}
         />
         <input
           type="number"
           placeholder="Nota"
-          value={newCheckpoint.nota}
-          onChange={(e) => setNewCheckpoint({ ...newCheckpoint, nota: parseFloat(e.target.value) })}
+          value={newGlobalSolution.nota}
+          onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, nota: parseFloat(e.target.value) })}
         />
-        <button onClick={handleAddCheckpoint}>Adicionar</button>
+        <button onClick={handleAddGlobalSolution}>Adicionar</button>
       </div>
     </div>
   );
