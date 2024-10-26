@@ -101,18 +101,32 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
       <h1>Notas do Aluno RM: {rm}</h1>
       <div>
         {filteredChallenges.length > 0 ? (
-          filteredChallenges.map((challenge, index) => (
-            <div key={index} className="challenge-card">
-              <h2>Atividade: {challenge.atividade}</h2>
-              <p>Nota: {challenge.nota}</p>
-              <button onClick={() => handleRemoveChallenge(index)}>Remover</button>
-              <input
-                type="number"
-                value={challenge.nota}
-                onChange={(e) => handleEditChallenge(index, parseFloat(e.target.value))}
-              />
-            </div>
-          ))
+              <table className="tabelaNotas">
+              <thead>
+                  <tr>
+                      <th>Nome atividade</th>
+                      <th>Nota</th>
+                      <th>Remover atividade</th>
+                      <th>Editar nota</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                {filteredChallenges.map((challenge, index) => (
+                  <tr key={index} className="challenge-card">
+                    <td>{challenge.atividade}</td>
+                    <td>{challenge.nota}</td>
+                    <td><button className="botao-remover" onClick={() => handleRemoveChallenge(index)}>Remover</button></td>
+                    <td><input
+                      className="editar-nota"
+                      type="number"
+                      value={challenge.nota}
+                      onChange={(e) => handleEditChallenge(index, parseFloat(e.target.value))}
+                    /></td>
+                  </tr>
+                ))}
+              </tbody>
+          </table>
         ) : (
           <p>Nenhuma nota encontrada para este aluno.</p>
         )}

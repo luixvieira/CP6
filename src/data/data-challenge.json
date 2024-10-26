@@ -15,13 +15,13 @@
     "nota": 10
   },
   {
-    "rm": 558755,
-    "atividade": "SP1",
-    "nota": 4
-  },
-  {
     "rm": 558935,
     "atividade": "SP2",
     "nota": 9
+  },
+  {
+    "rm": 558755,
+    "atividade": "SP1",
+    "nota": 7
   }
 ]
