@@ -106,9 +106,3 @@ body {
     @apply text-2xl font-bold;
   }
 }
-
-@layer utilities {
-  .background-challenge {
-    
-  }
-}

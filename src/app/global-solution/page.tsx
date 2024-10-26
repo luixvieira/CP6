@@ -9,27 +9,28 @@ export default function GSPage() {
   ];
 
   return (
-      <>
-        <div className="paginas global">
-          <h1>Global Solutions</h1>
-          <p>Listagem de todas as avaliações de Globals aqui.</p>
-        </div>
-        <div className="alunos">
+    <>
+      <div className="paginas global">
+        <h1>Global Solutions</h1>
+        <p>Listagem de todas as avaliações de Globals aqui.</p>
+      </div>
+
+      <div className="alunos">
         {alunos.map((aluno) => (
-          <Link key={aluno.rm} href={`/global-solution/${aluno.rm}`}>
+          <Link key={aluno.rm} href={`/checkpoint/${aluno.rm}`}>
             <section>
-              <span>{aluno.nome}</span>
+              <span className="nome">{aluno.nome}</span>
               <span>RM: {aluno.rm}</span>
-              <span>Médias</span>
-              <div>
-                <div>
-                  <span>1º Sem</span>
+              <span className="medias">Médias</span>
+              <div className="caixa-medias">
+                <div className="caixa-sem">
+                  <span className="titulo-sem">1º Sem</span>
                   <span>nota</span>
                   <span>nota</span>
                   <span>nota</span>
                 </div>
-                <div>
-                  <span>2º Sem</span>
+                <div className="caixa-sem">
+                  <span className="titulo-sem">2º Sem</span>
                   <span>nota</span>
                   <span>nota</span>
                   <span>nota</span>
