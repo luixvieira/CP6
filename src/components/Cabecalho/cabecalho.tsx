@@ -1,6 +1,6 @@
-import Menu from "@/components/menu/menu"
+import Menu from "@/components/Menu/Menu"
 
-export default function cabecalho() {
+export default function Cabecalho() {
     return (
         <header className="cabecalho">
             <span>Portifólio</span>

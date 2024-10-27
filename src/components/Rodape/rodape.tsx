@@ -1,4 +1,4 @@
-export default function rodape() {
+export default function Rodape() {
     return (
         <footer className='rodape'>
             <h2>✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ <p>. . . . . . . . * * * * * . . . . . . . .</p></h2>

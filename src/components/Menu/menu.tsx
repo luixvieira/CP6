@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function menu() {
+export default function Menu() {
     return (
         <nav className='menu'>
             <ul>

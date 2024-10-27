@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/app/globals.css"
-import cabecalho from "@/components/cabecalho/cabecalho";
-import rodape from "@/components/rodape/rodape";
+import Cabecalho from "@/components/Cabecalho/Cabecalho";
+import Rodape from "@/components/Rodape/Rodape";
 
 export const metadata: Metadata = {
     title: "CP6",
@@ -19,9 +19,9 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     return (
         <html lang="pt-br">
           <body>
-            <cabecalho/>
+            <Cabecalho/>
             {children}
-            <rodape/>
+            <Rodape/>
            </body>
         </html>
       );
