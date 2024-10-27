@@ -150,4 +150,20 @@ body {
     @apply bg-white border-2 border-blue-950 rounded-sm py-2 px-5 drop-shadow-lg hover:bg-gray-100 transition duration-200;
   }
 
+.nav-link {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #ff9900;
+}
+
+
 }
