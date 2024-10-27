@@ -97,8 +97,8 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   return (
-    <div>
-      <h1>Notas do Aluno RM: {rm}</h1>
+    <div className="container-notas">
+      <h1 className="titulo-notas">Notas do Aluno RM: {rm}</h1>
       <div>
         {filteredChallenges.length > 0 ? (
               <table className="tabelaNotas">
@@ -128,7 +128,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
               </tbody>
           </table>
         ) : (
-          <p>Nenhuma nota encontrada para este aluno.</p>
+          <p className="nenhuma-nota">Nenhuma nota encontrada para este aluno.</p>
         )}
       </div>
 

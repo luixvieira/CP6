@@ -97,24 +97,38 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   return (
-    <div>
-      <h1>Notas do Aluno RM: {rm}</h1>
+    <div className="container-notas">
+      <h1 className="titulo-notas">Notas do Aluno RM: {rm}</h1>
       <div>
         {filteredCheckpoints.length > 0 ? (
-          filteredCheckpoints.map((checkpoint, index) => (
-            <div key={index} className="checkpoint-card">
-              <h2>Atividade: {checkpoint.atividade}</h2>
-              <p>Nota: {checkpoint.nota}</p>
-              <button onClick={() => handleRemoveCheckpoint(index)}>Remover</button>
-              <input
-                type="number"
-                value={checkpoint.nota}
-                onChange={(e) => handleEditCheckpoint(index, parseFloat(e.target.value))}
-              />
-            </div>
-          ))
+              <table className="tabelaNotas">
+              <thead>
+                  <tr>
+                      <th>Nome atividade</th>
+                      <th>Nota</th>
+                      <th>Remover atividade</th>
+                      <th>Editar nota</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                {filteredCheckpoints.map((checkpoint, index) => (
+                  <tr key={index} className="checkpoint-card">
+                    <td>{checkpoint.atividade}</td>
+                    <td>{checkpoint.nota}</td>
+                    <td><button className="botao-remover" onClick={() => handleRemoveCheckpoint(index)}>Remover</button></td>
+                    <td><input
+                      className="editar-nota"
+                      type="number"
+                      value={checkpoint.nota}
+                      onChange={(e) => handleEditCheckpoint(index, parseFloat(e.target.value))}
+                    /></td>
+                  </tr>
+                ))}
+              </tbody>
+          </table>
         ) : (
-          <p>Nenhuma nota encontrada para este aluno.</p>
+          <p className="nenhuma-nota">Nenhuma nota encontrada para este aluno.</p>
         )}
       </div>
 

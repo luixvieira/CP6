@@ -62,16 +62,27 @@ body {
       @apply text-lg font-semibold;
     }
 }
+.container-notas {
+  @apply text-white drop-shadow-md;
 
-.tabela {
-  @apply border-2 border-gray-700 m-auto w-10/12 bg-black shadow-lg shadow-gray-600 font-sans font-bold;
-
-  & th,td{
-      @apply text-center text-white border-2 border-white py-5;
+  & .titulo-notas {
+    @apply flex justify-around bg-pink-600 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 text-3xl font-bold;
   }
 
-  & tbody tr{
-      @apply hover:bg-slate-500;
+  & .nenhuma-nota {
+    @apply flex justify-around bg-blue-950 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 text-2xl font-bold;
+  }
+
+  & .tabela {
+    @apply border-2 border-gray-700 m-auto w-10/12 bg-black shadow-lg shadow-gray-600 font-sans font-bold;
+  
+    & th,td{
+        @apply text-center text-white border-2 border-white py-5;
+    }
+  
+    & tbody tr{
+        @apply hover:bg-slate-500;
+    }
   }
 }
 

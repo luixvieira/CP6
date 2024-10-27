@@ -97,43 +97,57 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
   };
 
   return (
+    <div className="container-notas">
+      <h1 className="titulo-notas">Notas do Aluno RM: {rm}</h1>
     <div>
-      <h1>Notas do Aluno RM: {rm}</h1>
-      <div>
-        {filteredGlobalSolutions.length > 0 ? (
-          filteredGlobalSolutions.map((globalSolution, index) => (
-            <div key={index} className="globalSolution-card">
-              <h2>Atividade: {globalSolution.atividade}</h2>
-              <p>Nota: {globalSolution.nota}</p>
-              <button onClick={() => handleRemoveGlobalSolution(index)}>Remover</button>
-              <input
-                type="number"
-                value={globalSolution.nota}
-                onChange={(e) => handleEditGlobalSolution(index, parseFloat(e.target.value))}
-              />
-            </div>
-          ))
-        ) : (
-          <p>Nenhuma nota encontrada para este aluno.</p>
-        )}
-      </div>
+      {filteredGlobalSolutions.length > 0 ? (
+            <table className="tabelaNotas">
+            <thead>
+                <tr>
+                    <th>Nome atividade</th>
+                    <th>Nota</th>
+                    <th>Remover atividade</th>
+                    <th>Editar nota</th>
+                </tr>
+            </thead>
 
-      <div>
-        <h2>Adicionar Nova Nota</h2>
-        <input
-          type="text"
-          placeholder="Atividade"
-          value={newGlobalSolution.atividade}
-          onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, atividade: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Nota"
-          value={newGlobalSolution.nota}
-          onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, nota: parseFloat(e.target.value) })}
-        />
-        <button onClick={handleAddGlobalSolution}>Adicionar</button>
-      </div>
+            <tbody>
+              {filteredGlobalSolutions.map((globalSolution, index) => (
+                <tr key={index} className="globalSolution-card">
+                  <td>{globalSolution.atividade}</td>
+                  <td>{globalSolution.nota}</td>
+                  <td><button className="botao-remover" onClick={() => handleRemoveGlobalSolution(index)}>Remover</button></td>
+                  <td><input
+                    className="editar-nota"
+                    type="number"
+                    value={globalSolution.nota}
+                    onChange={(e) => handleEditGlobalSolution(index, parseFloat(e.target.value))}
+                  /></td>
+                </tr>
+              ))}
+            </tbody>
+        </table>
+      ) : (
+        <p className="nenhuma-nota">Nenhuma nota encontrada para este aluno.</p>
+      )}
     </div>
+
+    <div>
+      <h2>Adicionar Nova Nota</h2>
+      <input
+        type="text"
+        placeholder="Atividade"
+        value={newGlobalSolution.atividade}
+        onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, atividade: e.target.value })}
+      />
+      <input
+        type="number"
+        placeholder="Nota"
+        value={newGlobalSolution.nota}
+        onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, nota: parseFloat(e.target.value) })}
+      />
+      <button onClick={handleAddGlobalSolution}>Adicionar</button>
+    </div>
+  </div>
   );
 }
