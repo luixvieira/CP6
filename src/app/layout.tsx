@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../app/globals.css"
-import Cabecalho from "../components/cabecalho/cabecalho";
-import Rodape from "../components/Rodape/rodape";
+import Cabecalho from "../components/Cabecalho/cabecalho";
+import Rodape from "../components/Rodape/Rodape";
 
 export const metadata: Metadata = {
     title: "CP6",
