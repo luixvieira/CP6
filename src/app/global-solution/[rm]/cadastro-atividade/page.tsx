@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import "src\app\globals.css";
+import "@/app/global.css";
 
 export default function CadastroAtividade({ params }: { params: { rm: number } }) {
   const [globalSolution, setGlobalSolution] = useState({ atividade: "", nota: 0 });
