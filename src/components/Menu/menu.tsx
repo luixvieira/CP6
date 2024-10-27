@@ -11,4 +11,4 @@ export default function Menu() {
             </ul>
         </nav>
     )
-}
+} 
