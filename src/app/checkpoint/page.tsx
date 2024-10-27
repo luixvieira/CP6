@@ -40,13 +40,6 @@ useEffect(() => {
     return (soma / notasDoAluno.length).toFixed(2);
   };
 
-
-
-
-
-
-
-
     return (
       <>
       <div className="paginas checkpoint">
@@ -60,20 +53,8 @@ useEffect(() => {
             <section>
               <span className="nome">{aluno.nome}</span>
               <span>RM: {aluno.rm}</span>
-              <span className="medias">Médias {calcularMedia(aluno.rm)}</span>
               <div className="caixa-medias">
-                <div className="caixa-sem">
-                  <span className="titulo-sem">1º Sem</span>
-                  <span>nota {calcularMedia(aluno.rm)}</span>
-                  <span>nota</span>
-                  <span>nota</span>
-                </div>
-                <div className="caixa-sem">
-                  <span className="titulo-sem">2º Sem</span>
-                  <span>nota</span>
-                  <span>nota</span>
-                  <span>nota</span>
-                </div>
+              <span className="medias">Médias {calcularMedia(aluno.rm)} </span>
               </div>
             </section>
           </Link>
