@@ -132,8 +132,8 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         )}
       </div>
 
-      <div>
-        <h2>Adicionar Nova Nota</h2>
+      <div className="adicionar-nota">
+        <h2 className="titulo">Adicionar Nova Nota</h2>
         <input
           type="text"
           placeholder="Atividade"
@@ -146,7 +146,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
           value={newCheckpoint.nota}
           onChange={(e) => setNewCheckpoint({ ...newCheckpoint, nota: parseFloat(e.target.value) })}
         />
-        <button onClick={handleAddCheckpoint}>Adicionar</button>
+        <button className="botao-adicionar" onClick={handleAddCheckpoint}>Adicionar</button>
       </div>
     </div>
   );

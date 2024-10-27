@@ -132,8 +132,8 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
       )}
     </div>
 
-    <div>
-      <h2>Adicionar Nova Nota</h2>
+    <div className="adicionar-nota">
+      <h2 className="titulo">Adicionar Nova Nota</h2>
       <input
         type="text"
         placeholder="Atividade"
@@ -146,7 +146,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         value={newGlobalSolution.nota}
         onChange={(e) => setNewGlobalSolution({ ...newGlobalSolution, nota: parseFloat(e.target.value) })}
       />
-      <button onClick={handleAddGlobalSolution}>Adicionar</button>
+      <button className="botao-adicionar" onClick={handleAddGlobalSolution}>Adicionar</button>
     </div>
   </div>
   );

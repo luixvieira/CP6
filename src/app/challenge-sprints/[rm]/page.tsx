@@ -132,8 +132,8 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         )}
       </div>
 
-      <div>
-        <h2>Adicionar Nova Nota</h2>
+      <div className="adicionar-nota">
+        <h2 className="titulo">Adicionar Nova Nota</h2>
         <input
           type="text"
           placeholder="Atividade"
@@ -146,7 +146,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
           value={newChallenge.nota}
           onChange={(e) => setNewChallenge({ ...newChallenge, nota: parseFloat(e.target.value) })}
         />
-        <button onClick={handleAddChallenge}>Adicionar</button>
+        <button className="botao-adicionar" onClick={handleAddChallenge}>Adicionar</button>
       </div>
     </div>
   );

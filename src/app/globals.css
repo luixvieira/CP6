@@ -62,15 +62,16 @@ body {
       @apply text-lg font-semibold;
     }
 }
+
 .container-notas {
-  @apply text-white drop-shadow-md;
+  @apply text-blue-950 drop-shadow-md;
 
   & .titulo-notas {
-    @apply flex justify-around bg-pink-600 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 text-3xl font-bold;
+    @apply flex justify-around text-white bg-pink-600 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 text-3xl font-bold;
   }
 
   & .nenhuma-nota {
-    @apply flex justify-around bg-blue-950 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 text-2xl font-bold;
+    @apply flex justify-around text-white bg-blue-950 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 text-2xl font-bold;
   }
 
   & .tabela {
@@ -82,6 +83,22 @@ body {
   
     & tbody tr{
         @apply hover:bg-slate-500;
+    }
+  }
+
+  & .adicionar-nota {
+    @apply flex flex-col justify-around bg-pink-600 shadow-md rounded-lg py-3 px-6 mt-2 mb-4 font-bold;
+
+    & .titulo {
+      @apply text-3xl mb-4 text-white;
+    }
+
+    & input {
+      @apply bg-white border-2 text-2xl border-blue-950 rounded-lg py-1 drop-shadow-lg hover:bg-gray-100 transition duration-200 mb-4 px-2;
+    }
+
+    & .botao-adicionar {
+      @apply text-3xl text-white bg-green-500 rounded-lg py-2 px-5 drop-shadow-lg hover:bg-blue-800 transition duration-200;
     }
   }
 }
