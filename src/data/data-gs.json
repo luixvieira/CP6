@@ -1,17 +1,62 @@
 [
   {
-    "rm": 555656,
-    "atividade": "GS1",
-    "nota": 5.5
-  },
-  {
-    "rm": 558755,
-    "atividade": "GS1",
-    "nota": 7
+    "rm": 558935,
+    "atividade": "ARTIFICIAL INTELLIGENCE & CHATBOT",
+    "nota": 49.25
   },
   {
     "rm": 558935,
-    "atividade": "GS1",
-    "nota": 10
+    "atividade": "BUILDING RELATIONAL DATABASE",
+    "nota": 70
+  },
+  {
+    "rm": 558935,
+    "atividade": "COMPUTATIONAL THINKING USING PYTHON",
+    "nota": 66.25
+  },
+  {
+    "rm": 558935,
+    "atividade": "DOMAIN DRIVEN DESIGN USING JAVA",
+    "nota": 58
+  },
+  {
+    "rm": 558935,
+    "atividade": "FRONT-END DESIGN ENGINEERING",
+    "nota": 54.5
+  },
+  {
+    "rm": 558935,
+    "atividade": "SOFTWARE ENGINEERING AND BUSINESS MODEL",
+    "nota": 87.25
+  },
+  {
+    "rm": 558755,
+    "atividade": "ARTIFICIAL INTELLIGENCE & CHATBOT",
+    "nota": 45
+  },
+  {
+    "rm": 558755,
+    "atividade": "BUILDING RELATIONAL DATABASE",
+    "nota": 62
+  },
+  {
+    "rm": 558755,
+    "atividade": "COMPUTATIONAL THINKING USING PYTHON",
+    "nota": 55.75
+  },
+  {
+    "rm": 555656,
+    "atividade": "ARTIFICIAL INTELLIGENCE & CHATBOT",
+    "nota": 88
+  },
+  {
+    "rm": 555656,
+    "atividade": "BUILDING RELATIONAL DATABASE",
+    "nota": 85
+  },
+  {
+    "rm": 555656,
+    "atividade": "COMPUTATIONAL THINKING USING PYTHON",
+    "nota": 73
   }
 ]

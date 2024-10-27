@@ -1,93 +1,62 @@
 [
   {
     "rm": 558935,
-    "atividade": "SPRINT 1 - ARTIFICIAL INTELLIGENCE & CHATBOT",
+    "atividade": "SPRINT 1 ARTIFICIAL INTELLIGENCE & CHATBOT",
     "nota": 40
   },
   {
     "rm": 558935,
-    "atividade": "SPRINT 1 - Building Relational Database",
+    "atividade": "SPRINT 1 BUILDING RELATIONAL DATABASE",
     "nota": 20
   },
   {
     "rm": 558935,
-    "atividade": "SPRINT 1 - Computational Thinking Using Python",
+    "atividade": "SPRINT 1 COMPUTATIONAL THINKING USING PYTHON",
     "nota": 95
   },
   {
     "rm": 558935,
-    "atividade": "SPRINT 1 - DOMAIN DRIVEN DESIGN USING JAVA",
+    "atividade": "SPRINT 1 DOMAIN DRIVEN DESIGN USING JAVA",
     "nota": 60
   },
   {
     "rm": 558935,
-    "atividade": "SPRINT 1 - FRONT-END DESIGN ENGINEERING",
+    "atividade": "SPRINT 1 FRONT-END DESIGN ENGINEERING",
     "nota": 0
   },
   {
     "rm": 558935,
-    "atividade": "SPRINT 1 - SOFTWARE ENGINEERING AND BUSINESS MODEL",
+    "atividade": "SPRINT 1 SOFTWARE ENGINEERING AND BUSINESS MODEL",
     "nota": 79
   },
-    {
-    "rm": 558935,
-    "atividade": "SPRINT 2 - ARTIFICIAL INTELLIGENCE & CHATBOT",
-    "nota": 40
+  {
+    "rm": 558755,
+    "atividade": "SPRINT 1 ARTIFICIAL INTELLIGENCE & CHATBOT",
+    "nota": 55
   },
   {
-    "rm": 558935,
-    "atividade": "SPRINT 2 - Building Relational Database",
-    "nota": 20
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 2 - Computational Thinking Using Python",
-    "nota": 95
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 2 - DOMAIN DRIVEN DESIGN USING JAVA",
-    "nota": 60
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 2 - FRONT-END DESIGN ENGINEERING",
-    "nota": 0
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 2 - SOFTWARE ENGINEERING AND BUSINESS MODEL",
-    "nota": 79
-  },
-    {
-    "rm": 558935,
-    "atividade": "SPRINT 3 - ARTIFICIAL INTELLIGENCE & CHATBOT",
-    "nota": 90
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 3 - Building Relational Database",
+    "rm": 558755,
+    "atividade": "SPRINT 1 BUILDING RELATIONAL DATABASE",
     "nota": 70
   },
   {
-    "rm": 558935,
-    "atividade": "SPRINT 3 - Computational Thinking Using Python",
-    "nota": 20
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 3 - DOMAIN DRIVEN DESIGN USING JAVA",
-    "nota": 85
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 3 - FRONT-END DESIGN ENGINEERING",
-    "nota": 50
-  },
-  {
-    "rm": 558935,
-    "atividade": "SPRINT 3 - SOFTWARE ENGINEERING AND BUSINESS MODEL",
+    "rm": 558755,
+    "atividade": "SPRINT 1 COMPUTATIONAL THINKING USING PYTHON",
     "nota": 60
+  },
+  {
+    "rm": 555656,
+    "atividade": "SPRINT 1 ARTIFICIAL INTELLIGENCE & CHATBOT",
+    "nota": 88
+  },
+  {
+    "rm": 555656,
+    "atividade": "SPRINT 1 BUILDING RELATIONAL DATABASE",
+    "nota": 90
+  },
+  {
+    "rm": 555656,
+    "atividade": "SPRINT 1 COMPUTATIONAL THINKING USING PYTHON",
+    "nota": 85
   }
-
 ]
