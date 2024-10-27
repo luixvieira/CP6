@@ -2,7 +2,7 @@
 
 import { TipoChallenge } from "@/app/types";
 import { useEffect, useState } from "react";
-import "src\app\globals.css";
+import "@/app/global.css"
 
 export default function AtividadeDetalhe({ params }: { params: { rm: number, atividade: string } }) {
   const [challenge, setChallenge] = useState<{ atividade: string, nota: number } | null>(null);
