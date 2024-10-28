@@ -1,11 +1,16 @@
 "use client";
 
-import { TipoGS } from "@/app/types";
 import { useEffect, useState } from "react";
 
+type GlobalSolution = {
+  rm: number;
+  atividade: string;
+  nota: number;
+};
+
 export default function PaginaIndividual({ params }: { params: { rm: number } }) {
-  const [filteredGlobalSolutions, setFilteredGlobalSolutions] = useState<TipoGS[]>([]);
-  const [newGlobalSolution, setNewGlobalSolution] = useState({ rm: 0, atividade: "", nota: 0 });
+  const [filteredGlobalSolutions, setFilteredGlobalSolutions] = useState<GlobalSolution[]>([]);
+  const [newGlobalSolution, setNewGlobalSolution] = useState<GlobalSolution>({ rm: 0, atividade: "", nota: 0 });
   const rm = parseInt(params.rm.toString(), 10);
 
   const loadGlobalSolutions = () => {
@@ -16,7 +21,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
         }
         return response.json();
       })
-      .then((data: TipoGS[]) => {
+      .then((data: GlobalSolution[]) => {
         const filtered = data.filter(globalSolution => globalSolution.rm === rm);
         setFilteredGlobalSolutions(filtered);
       })
@@ -71,7 +76,7 @@ export default function PaginaIndividual({ params }: { params: { rm: number } })
     } catch (error) {
         console.error("Erro ao remover a atividade:", error);
     }
-};
+  };
 
   const handleEditGlobalSolution = (index: number, updatedNota: number) => {
     const { atividade, rm } = filteredGlobalSolutions[index];
